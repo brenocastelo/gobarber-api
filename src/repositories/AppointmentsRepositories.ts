@@ -1,41 +1,23 @@
-import { isEqual } from 'date-fns';
+import { EntityRepository, Repository } from 'typeorm';
 
 import Appointment from '../models/Appointment';
 
-interface CreateAppointmentDTO {
-  provider: string;
-  date: Date;
-}
-
-class AppointmentsRepository {
-  // definir varíavel para armazenar os appointments
-  private appointments: Appointment[];
-
-  constructor() {
-    // inicializar variável de appointments
-    this.appointments = [];
-  }
-
-  public findAll(): Appointment[] {
-    return this.appointments;
-  }
-
-  public findByDate(date: Date): Appointment | null {
-    const hasAppointment = this.appointments.find(appointment =>
-      isEqual(appointment.date, date),
-    );
+@EntityRepository(Appointment)
+class AppointmentsRepository extends Repository<Appointment> {
+  public async findByDate(date: Date): Promise<Appointment | null> {
+    const hasAppointment = await this.findOne({
+      where: { date },
+    });
 
     return hasAppointment || null;
-  }
-
-  // operação de criação de appointment
-  public create({ provider, date }: CreateAppointmentDTO): Appointment {
-    const appointment = new Appointment({ provider, date });
-
-    this.appointments.push(appointment);
-
-    return appointment;
   }
 }
 
 export default AppointmentsRepository;
+
+/**
+ * findByDate(date).then(response => response)
+ * const response = await findByDate(date)
+ *
+ * em ambos os casos acima a variável response será do tiopo Appointment ou null
+ * */
