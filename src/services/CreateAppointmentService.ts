@@ -11,7 +11,7 @@ import AppointmentsRepository from '../repositories/AppointmentsRepositories';
  */
 
 interface Request {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
@@ -20,7 +20,7 @@ class CreateAppointmentService {
    * terá um único método que é responsável por executa-lo
    *  - "execute Create appoitnment"
    */
-  public async execute({ provider, date }: Request): Promise<Appointment> {
+  public async execute({ provider_id, date }: Request): Promise<Appointment> {
     /**
      * regra de negócio:
      *  - cada agendamento só pode ser marcado a cada hora (ex: 16:00, 17: 00)
@@ -37,7 +37,7 @@ class CreateAppointmentService {
     }
 
     const appointment = appointmentsRepository.create({
-      provider,
+      provider_id,
       date: appointmentDate,
     });
 
