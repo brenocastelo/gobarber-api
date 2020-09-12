@@ -2,11 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 
+import uploadConfig from '@config/upload';
+
 import routes from './routes';
 import handlerAppErrors from './middlewares/handlerAppErrors';
 
-import uploadConfig from './config/upload';
-import './database';
+import '@shared/infra/typeorm';
 
 const app = express();
 
