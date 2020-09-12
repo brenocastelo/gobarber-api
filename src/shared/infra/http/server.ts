@@ -8,6 +8,7 @@ import routes from './routes';
 import handlerAppErrors from './middlewares/handlerAppErrors';
 
 import '@shared/infra/typeorm';
+import '@shared/container';
 
 const app = express();
 

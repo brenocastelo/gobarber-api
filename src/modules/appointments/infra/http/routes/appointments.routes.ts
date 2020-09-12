@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import { parseISO } from 'date-fns';
-import { getCustomRepository } from 'typeorm';
+import { container } from 'tsyringe';
 
 import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
-import AppointmentsRepository from '@modules/appointments/repositories/AppointmentsRepositories';
 import confirmAuthentication from '@modules/users/infra/http/middlewares/confirmAuthentication';
 
 const appointmentRouter = Router();
@@ -16,12 +15,12 @@ const appointmentRouter = Router();
 
 appointmentRouter.use(confirmAuthentication);
 
-appointmentRouter.get('/', async (request, response) => {
+/* appointmentRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
   const appointments = await appointmentsRepository.find();
-
+  
   return response.json(appointments);
-});
+}); */
 
 appointmentRouter.post('/', async (request, response) => {
   const { provider_id, date } = request.body;
@@ -29,7 +28,7 @@ appointmentRouter.post('/', async (request, response) => {
   // tranformação de dadod
   const parsedDate = parseISO(date);
 
-  const createAppointment = new CreateAppointmentService();
+  const createAppointment = container.resolve(CreateAppointmentService);
 
   const appointment = await createAppointment.execute({
     provider_id,
