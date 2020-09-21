@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepository';
+import HashProviderInterface from '../providers/interfaces/HashProviderImplementation';
 
 interface Request {
   name: string;
@@ -17,6 +18,9 @@ class CreateUserService {
   public constructor(
     @inject('UsersRepository')
     private userRepository: UsersRepositoryInterface,
+
+    @inject('HashProvider')
+    private hashProvider: HashProviderInterface,
   ) {}
 
   public async execute({ name, email, password }: Request): Promise<User> {
@@ -26,15 +30,13 @@ class CreateUserService {
       throw new AppError('This email is already registered');
     }
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await this.hashProvider.generateHash(password);
 
     const user = await this.userRepository.create({
       name,
       email,
       password: hashedPassword,
     });
-
-    delete user.password;
 
     return user;
   }
