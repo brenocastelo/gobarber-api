@@ -18,7 +18,7 @@ export default class UserToken {
   token: string;
 
   @Column()
-  user_id: User;
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;
