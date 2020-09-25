@@ -15,7 +15,7 @@ const TIME_IN_HOUR_TO_EXPIRE_TOKEN = 2;
 @injectable()
 export default class ResetPasswordService {
   public constructor(
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private userRepository: UsersRepositoryInterface,
     @inject('UserTokenRepository')
     private userTokenRepository: UserTokenRepositoryInterface,

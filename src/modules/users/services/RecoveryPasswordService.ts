@@ -12,7 +12,7 @@ interface Request {
 @injectable()
 export default class RecoveryPasswordService {
   public constructor(
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private userRepository: UsersRepositoryInterface,
 
     @inject('MailProvider')
@@ -29,8 +29,11 @@ export default class RecoveryPasswordService {
       throw new AppError('User does not exists');
     }
 
-    await this.userTokenRepository.generateToken(user.id);
+    const { token } = await this.userTokenRepository.generateToken(user.id);
 
-    await this.mailProvider.sendMail(email, 'Recuperar a senha');
+    await this.mailProvider.sendMail(
+      email,
+      `Let's recovery your password. Use this token: ${token}`,
+    );
   }
 }

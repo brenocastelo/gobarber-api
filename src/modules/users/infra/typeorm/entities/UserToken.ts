@@ -24,5 +24,5 @@ export default class UserToken {
   created_at: Date;
 
   @UpdateDateColumn()
-  update_at: Date;
+  updated_at: Date;
 }

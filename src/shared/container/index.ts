@@ -6,7 +6,7 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepository';
 
 import '@modules/users/providers';
-import '@shared/providers/StorageProvider';
+import '@shared/providers';
 import UserTokenRepositoryInterface from '@modules/users/repositories/UserTokenRepositoryInterface';
 import UsersTokenRepository from '@modules/users/infra/typeorm/repositories/UsersTokenRepository';
 
