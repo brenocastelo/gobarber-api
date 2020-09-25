@@ -7,6 +7,8 @@ import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositor
 
 import '@modules/users/providers';
 import '@shared/providers/StorageProvider';
+import UserTokenRepositoryInterface from '@modules/users/repositories/UserTokenRepositoryInterface';
+import UsersTokenRepository from '@modules/users/infra/typeorm/repositories/UsersTokenRepository';
 
 container.registerSingleton<AppointmentsRepositoryInterface>(
   'AppointmentsRepository',
@@ -16,4 +18,9 @@ container.registerSingleton<AppointmentsRepositoryInterface>(
 container.registerSingleton<UsersRepositoryInterface>(
   'UsersRepository',
   UsersRepository,
+);
+
+container.registerSingleton<UserTokenRepositoryInterface>(
+  'UserTokenRepository',
+  UsersTokenRepository,
 );

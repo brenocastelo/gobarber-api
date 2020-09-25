@@ -3,6 +3,7 @@ import AppError from '@shared/errors/AppError';
 import HashProviderInterface from '../providers/interfaces/HashProviderImplementation';
 import UsersRepositoryInterface from '../repositories/UsersRepository';
 import UserTokenRepositoryInterface from '../repositories/UserTokenRepositoryInterface';
+import { inject, injectable } from 'tsyringe';
 
 interface Request {
   token: string;
@@ -11,10 +12,14 @@ interface Request {
 
 const TIME_IN_HOUR_TO_EXPIRE_TOKEN = 2;
 
+@injectable()
 export default class ResetPasswordService {
   public constructor(
+    @inject('UserRepository')
     private userRepository: UsersRepositoryInterface,
+    @inject('UserTokenRepository')
     private userTokenRepository: UserTokenRepositoryInterface,
+    @inject('HashProvider')
     private hashProvider: HashProviderInterface,
   ) {}
 
