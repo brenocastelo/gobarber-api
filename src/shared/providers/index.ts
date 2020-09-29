@@ -3,13 +3,20 @@ import EtherealMailProvider from './MailProvider/implementations/EtherealMailPro
 import MailProviderInterface from './MailProvider/interfaces/MailProviderInterface';
 import DiskStorageProvider from './StorageProvider/implementations/DIskStorageProvider';
 import StorageProviderInterface from './StorageProvider/interfaces/StorageProviderInterface';
+import HandlebarsTemplateProvider from './TemplateMailProvider/implementation/HandlebarsTemplateProvider';
+import TemplateMailProviderInterface from './TemplateMailProvider/interfaces/TemplateMailProviderINterface';
 
 container.registerSingleton<StorageProviderInterface>(
   'StorageInterface',
   DiskStorageProvider,
 );
 
+container.registerSingleton<TemplateMailProviderInterface>(
+  'TemplateMailProvider',
+  HandlebarsTemplateProvider,
+);
+
 container.registerInstance<MailProviderInterface>(
   'MailProvider',
-  new EtherealMailProvider(),
+  container.resolve(EtherealMailProvider),
 );

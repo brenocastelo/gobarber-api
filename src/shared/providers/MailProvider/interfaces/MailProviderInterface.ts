@@ -1,3 +1,5 @@
+import MailProviderDTO from '../dtos/MailProviderDTO';
+
 export default interface MailProviderInterface {
-  sendMail(to: string, body: string): Promise<void>;
+  sendMail(data: MailProviderDTO): Promise<void>;
 }

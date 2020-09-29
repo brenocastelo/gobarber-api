@@ -1,4 +1,6 @@
 import { inject, injectable } from 'tsyringe';
+import path from 'path';
+
 import AppError from '@shared/errors/AppError';
 import MailProviderInterface from '@shared/providers/MailProvider/interfaces/MailProviderInterface';
 
@@ -31,9 +33,26 @@ export default class RecoveryPasswordService {
 
     const { token } = await this.userTokenRepository.generateToken(user.id);
 
-    await this.mailProvider.sendMail(
-      email,
-      `Let's recovery your password. Use this token: ${token}`,
+    const templatePath = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs',
     );
+
+    await this.mailProvider.sendMail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: 'Recovery password',
+      templateContent: {
+        file: templatePath,
+        variables: {
+          name: user.name,
+          link: `http://localhost:3000/reset_password?token=${token}`,
+        },
+      },
+    });
   }
 }
