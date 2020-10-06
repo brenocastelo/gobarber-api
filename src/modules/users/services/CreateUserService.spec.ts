@@ -1,14 +1,18 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/fakes/FakeHashProvider';
+import HashProviderInterface from '../providers/interfaces/HashProviderImplementation';
+import UsersRepositoryInterface from '../repositories/UsersRepository';
 import CreateUserService from './CreateUserService';
 
 let createUserService: CreateUserService;
+let fakeUserRepository: UsersRepositoryInterface;
+let fakeHashProvider: HashProviderInterface;
 
 describe('CreateUserService', () => {
   beforeEach(() => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
+    fakeUserRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
     createUserService = new CreateUserService(
       fakeUserRepository,
       fakeHashProvider,
@@ -16,9 +20,6 @@ describe('CreateUserService', () => {
   });
 
   it('should be able to create a new user', async () => {
-    /*  const fakeUserRepository = new FakeUsersRepository();
-    const createUserService = new CreateUserService(fakeUserRepository); */
-
     const user = await createUserService.execute({
       name: 'LeBron James',
       email: 'king@email.com',
@@ -30,9 +31,6 @@ describe('CreateUserService', () => {
   });
 
   it('should not be able to create a user whe the email is already registered', async () => {
-    /*  const fakeUserRepository = new FakeUsersRepository();
-    const createUserService = new CreateUserService(fakeUserRepository); */
-
     await createUserService.execute({
       name: 'LeBron James',
       email: 'king@email.com',

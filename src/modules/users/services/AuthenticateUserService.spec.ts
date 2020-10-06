@@ -1,23 +1,32 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/fakes/FakeHashProvider';
+import HashProviderInterface from '../providers/interfaces/HashProviderImplementation';
+import UsersRepositoryInterface from '../repositories/UsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
+let fakeUserRepository: UsersRepositoryInterface;
+let fakeHashProvider: HashProviderInterface;
+let createUserService: CreateUserService;
+let authenticateUserService: AuthenticateUserService;
+
 describe('AuthUserService', () => {
+  beforeEach(() => {
+    fakeUserRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createUserService = new CreateUserService(
+      fakeUserRepository,
+      fakeHashProvider,
+    );
+
+    authenticateUserService = new AuthenticateUserService(
+      fakeUserRepository,
+      fakeHashProvider,
+    );
+  });
+
   it('should be able to authenticate user', async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
-
-    const authenticateUserService = new AuthenticateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
-
     const user = await createUserService.execute({
       name: 'LeBron James',
       email: 'king@email.com',
@@ -34,14 +43,6 @@ describe('AuthUserService', () => {
   });
 
   it('should be not able to authenticate nonexistent user', async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-
-    const authenticateUserService = new AuthenticateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
-
     await expect(
       authenticateUserService.execute({
         email: 'breno@email.com',
@@ -51,19 +52,6 @@ describe('AuthUserService', () => {
   });
 
   it("should not be able to authenticate an user when passwords don't match", async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-
-    const authenticateUserService = new AuthenticateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
-
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
-
     await createUserService.execute({
       name: 'Lebron',
       email: 'king@email.com',
