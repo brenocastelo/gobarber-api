@@ -4,11 +4,13 @@ import AppointmentsRepositoryInterface from '@modules/appointments/repositories/
 import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepositories';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepository';
+import NotificationRepositoryInterface from '@modules/notifications/repositories/NotificationRepositoryInterface';
+import NotificationRepository from '@modules/notifications/infra/typeorm/repositories/NotificationRepository';
+import UserTokenRepositoryInterface from '@modules/users/repositories/UserTokenRepositoryInterface';
+import UsersTokenRepository from '@modules/users/infra/typeorm/repositories/UsersTokenRepository';
 
 import '@modules/users/providers';
 import '@shared/providers';
-import UserTokenRepositoryInterface from '@modules/users/repositories/UserTokenRepositoryInterface';
-import UsersTokenRepository from '@modules/users/infra/typeorm/repositories/UsersTokenRepository';
 
 container.registerSingleton<AppointmentsRepositoryInterface>(
   'AppointmentsRepository',
@@ -23,4 +25,9 @@ container.registerSingleton<UsersRepositoryInterface>(
 container.registerSingleton<UserTokenRepositoryInterface>(
   'UserTokenRepository',
   UsersTokenRepository,
+);
+
+container.registerSingleton<NotificationRepositoryInterface>(
+  'NotificationRepository',
+  NotificationRepository,
 );

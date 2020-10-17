@@ -1,3 +1,4 @@
+import { ListAllProvidersDTO } from '@modules/appointments/dtos/ListAllProvidersDTO';
 import CreateUserDTO from '@modules/users/dtos/CreateUserDTO';
 import User from '@modules/users/infra/typeorm/entities/User';
 import { uuid } from 'uuidv4';
@@ -35,5 +36,17 @@ export default class FakeUsersRepository implements UsersRepositoryInterface {
     this.users[userIndex] = user;
 
     return user;
+  }
+
+  public async findAllProviders({
+    except_user_id,
+  }: ListAllProvidersDTO): Promise<User[]> {
+    const { users } = this;
+
+    if (except_user_id) {
+      return users.filter(user => user.id !== except_user_id);
+    }
+
+    return users;
   }
 }
