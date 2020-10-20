@@ -7,7 +7,7 @@ import HandlebarsTemplateProvider from './TemplateMailProvider/implementation/Ha
 import TemplateMailProviderInterface from './TemplateMailProvider/interfaces/TemplateMailProviderINterface';
 
 container.registerSingleton<StorageProviderInterface>(
-  'StorageInterface',
+  'StorageProvider',
   DiskStorageProvider,
 );
 
