@@ -3,6 +3,7 @@ import { errors } from 'celebrate';
 import express from 'express';
 import cors from 'cors';
 import 'express-async-errors';
+import 'dotenv/config';
 
 import uploadConfig from '@config/upload';
 
