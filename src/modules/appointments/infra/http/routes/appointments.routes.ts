@@ -19,7 +19,7 @@ appointmentRouter.use(confirmAuthentication);
 /* appointmentRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
   const appointments = await appointmentsRepository.find();
-  
+
   return response.json(appointments);
 }); */
 
@@ -33,6 +33,7 @@ appointmentRouter.post(
   }),
   appointmentsController.create,
 );
+
 appointmentRouter.get('/schedule', providerAppointmentsController.index);
 
 export default appointmentRouter;

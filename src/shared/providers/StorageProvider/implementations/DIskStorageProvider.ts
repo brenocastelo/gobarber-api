@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import StorageProviderInterface from '../interfaces/StorageProviderInterface';
 import uploadConfig from '@config/upload';
+import StorageProviderInterface from '../interfaces/StorageProviderInterface';
 
 export default class DiskStorageProvider implements StorageProviderInterface {
   public async saveFile(file: string): Promise<string> {

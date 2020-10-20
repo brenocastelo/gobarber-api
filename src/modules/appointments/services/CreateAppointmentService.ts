@@ -3,8 +3,8 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
-import IAppointmentRepository from '../repositories/IAppointmentRepository';
 import NotificationRepositoryInterface from '@modules/notifications/repositories/NotificationRepositoryInterface';
+import IAppointmentRepository from '../repositories/IAppointmentRepository';
 
 /**
  * Service: responsável por tratar as regras de negócio

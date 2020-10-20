@@ -9,8 +9,8 @@ interface Request {
   user_id: string;
   name: string;
   email: string;
-  currentPassword?: string;
-  newPassword?: string;
+  current_password?: string;
+  new_password?: string;
 }
 
 @injectable()
@@ -27,8 +27,8 @@ export default class UpdateUserService {
     user_id,
     email,
     name,
-    newPassword,
-    currentPassword,
+    new_password,
+    current_password,
   }: Request): Promise<User> {
     const user = await this.userRepository.findById(user_id);
 
@@ -42,15 +42,15 @@ export default class UpdateUserService {
       throw new AppError('This email already exists');
     }
 
-    if (newPassword && !currentPassword) {
+    if (new_password && !current_password) {
       throw new AppError(
         'To update password, the current password must be informed',
       );
     }
 
-    if (newPassword && currentPassword) {
+    if (new_password && current_password) {
       const isCurrentPasswordCorrect = await this.hashProvider.compareHash(
-        currentPassword,
+        current_password,
         user.password,
       );
 
@@ -58,7 +58,7 @@ export default class UpdateUserService {
         throw new AppError('Current password is wrong');
       }
 
-      user.password = await this.hashProvider.generateHash(newPassword);
+      user.password = await this.hashProvider.generateHash(new_password);
     }
 
     user.email = email;
