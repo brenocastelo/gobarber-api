@@ -4,9 +4,9 @@ import { uuid } from 'uuidv4';
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
-import IAppointmentRepository from '../IAppointmentRepository';
 import FindAllByProviderInAMonthDTO from '@modules/appointments/dtos/FindAllByProviderInAMonthDTO';
 import FindAllByProviderInADayDTO from '@modules/appointments/dtos/FindAllByProviderInADayDTO';
+import IAppointmentRepository from '../IAppointmentRepository';
 
 export default class FakeAppointmentsRepository
   implements IAppointmentRepository {

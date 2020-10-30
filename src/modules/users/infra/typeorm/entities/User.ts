@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import storageConfig from '@config/storage';
+
 import { Exclude, Expose } from 'class-transformer';
 
 @Entity('users')
@@ -34,9 +36,14 @@ class User {
 
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
-    return this.avatar
-      ? `${process.env.APP_API_URL}/files/${this.avatar}}`
-      : null;
+    if (!this.avatar) return null;
+
+    const url =
+      process.env.STORAGE_DRIVER === 'disk'
+        ? `${process.env.APP_API_URL}/files/${this.avatar}`
+        : `https://${storageConfig.configs.s3.bucket}.s3.amazonaws.com/${this.avatar}`;
+
+    return url;
   }
 }
 

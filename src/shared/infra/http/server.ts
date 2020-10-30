@@ -5,7 +5,7 @@ import cors from 'cors';
 import 'express-async-errors';
 import 'dotenv/config';
 
-import uploadConfig from '@config/upload';
+import storageConfig from '@config/storage';
 
 import routes from './routes';
 import handlerAppErrors from './middlewares/handlerAppErrors';
@@ -17,7 +17,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(uploadConfig.uploadFolderPath));
+app.use('/files', express.static(storageConfig.uploadFolderPath));
 app.use(routes);
 app.use(errors());
 app.use(handlerAppErrors);
