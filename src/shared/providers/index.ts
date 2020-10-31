@@ -5,3 +5,4 @@
 import './TemplateMailProvider';
 import './MailProvider';
 import './StorageProvider';
+import './CacheProvider';
