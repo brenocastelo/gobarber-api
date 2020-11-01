@@ -33,8 +33,6 @@ export default class ListProviderAppointmentsService {
     );
 
     if (!appointments) {
-      console.log('Query in DB...');
-
       appointments = await this.appointmentsRepository.findAllByProviderInADay({
         year,
         month,

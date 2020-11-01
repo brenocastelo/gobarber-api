@@ -22,6 +22,7 @@ export default class FakeUsersRepository implements UsersRepositoryInterface {
 
     return user;
   }
+
   public async findByEmail(email: string): Promise<User | undefined> {
     const user = this.users.find(user => user.email === email);
 

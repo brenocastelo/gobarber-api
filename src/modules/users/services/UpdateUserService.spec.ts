@@ -43,8 +43,8 @@ describe('UpdateUserService', () => {
         email: 'davis@email.com',
         name: 'James',
         user_id: 'xxxxxxxxxxxxxx',
-        currentPassword: '222222',
-        newPassword: '232323',
+        current_password: '222222',
+        new_password: '232323',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -82,8 +82,8 @@ describe('UpdateUserService', () => {
       email: 'davis@email.com',
       name: 'James',
       user_id: user.id,
-      currentPassword: '212121',
-      newPassword: '232323',
+      current_password: '212121',
+      new_password: '232323',
     });
 
     expect(updatedUser.password).toBe('232323');
@@ -101,7 +101,7 @@ describe('UpdateUserService', () => {
         email: 'davis@email.com',
         name: 'James',
         user_id: user.id,
-        newPassword: '232323',
+        new_password: '232323',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -118,8 +118,8 @@ describe('UpdateUserService', () => {
         email: 'davis@email.com',
         name: 'James',
         user_id: user.id,
-        currentPassword: '222222',
-        newPassword: '232323',
+        current_password: '222222',
+        new_password: '232323',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

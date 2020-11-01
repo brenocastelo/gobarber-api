@@ -24,7 +24,7 @@ export default class RedisCacheProvider implements CacheProviderInterface {
   }
 
   public async invalidate(key: string): Promise<void> {
-    console.log(key);
+    this.client.del(key);
   }
 
   public async invalidatePrefix(prefix: string): Promise<void> {
