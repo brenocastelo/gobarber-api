@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 import NotificationRepositoryInterface from '@modules/notifications/repositories/NotificationRepositoryInterface';
+import CacheProviderInterface from '@shared/providers/CacheProvider/interfaces/CacheProviderInterface';
 import IAppointmentRepository from '../repositories/IAppointmentRepository';
 
 /**
@@ -26,6 +27,9 @@ class CreateAppointmentService {
 
     @inject('NotificationRepository')
     private notificationRepository: NotificationRepositoryInterface,
+
+    @inject('CacheProvider')
+    private cacheProvider: CacheProviderInterface,
   ) {}
 
   /**
@@ -81,6 +85,20 @@ class CreateAppointmentService {
       recipient_id: provider_id,
       content: `Novo agendamento para o dia ${formattedDate}`,
     });
+
+    /**
+     * no body da requisição da listagem não podemos passa um número iniciando
+     * com 0, então quando o cache pega ao dia ou mês (sendo estes menor que 10)
+     * para savar no redis, salva sem 0, por isso quando formos invalidar
+     * precisamos estar buscano por uma key com adata onde o mê e o dia se forem
+     * menor, que 10 não tenham 0
+     */
+    await this.cacheProvider.invalidate(
+      `provider-appointments:${provider_id}:${format(
+        appointmentDate,
+        'yyyy-M-d',
+      )}`,
+    );
 
     return appointment;
   }
