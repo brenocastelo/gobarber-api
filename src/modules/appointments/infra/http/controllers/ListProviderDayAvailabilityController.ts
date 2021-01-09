@@ -7,7 +7,7 @@ export default class ListProviderDayAvailabilityController {
     const { provider_id } = request.params;
     // ? como dizer que esse campos sao obrigatórios?
     // * ainda não há a validação desses campos, que podem vir nulos
-    const { year, month, day } = request.body;
+    const { year, month, day } = request.query;
 
     const listProviderDayAvailabilityService = container.resolve(
       ListProviderDayAvailabilityService,
@@ -15,9 +15,9 @@ export default class ListProviderDayAvailabilityController {
 
     const providerDayAvailability = await listProviderDayAvailabilityService.execute(
       {
-        year,
-        month,
-        day,
+        year: Number(year),
+        month: Number(month),
+        day: Number(day),
         provider_id,
       },
     );

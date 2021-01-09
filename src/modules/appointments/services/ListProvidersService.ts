@@ -1,7 +1,9 @@
+import { inject, injectable } from 'tsyringe';
+import { classToClass } from 'class-transformer';
+
 import User from '@modules/users/infra/typeorm/entities/User';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepository';
 import CacheProviderInterface from '@shared/providers/CacheProvider/interfaces/CacheProviderInterface';
-import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export default class ListProvidersService {
@@ -22,9 +24,12 @@ export default class ListProvidersService {
         except_user_id: userId,
       });
 
-      await this.cacheProvider.save(`providers-list:${userId}`, providers);
+      await this.cacheProvider.save(
+        `providers-list:${userId}`,
+        classToClass(providers),
+      );
     }
 
-    return providers;
+    return classToClass(providers);
   }
 }

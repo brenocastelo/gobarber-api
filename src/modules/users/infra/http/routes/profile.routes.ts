@@ -18,9 +18,7 @@ profilerRouter.put(
       email: Joi.string().email().required(),
       current_password: Joi.string(),
       new_password: Joi.string(),
-      password_confimation: Joi.string()
-        .valid(Joi.ref('new_password'))
-        .required(),
+      password_confirmation: Joi.string().valid(Joi.ref('new_password')),
     },
   }),
   profileController.update,

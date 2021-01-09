@@ -64,6 +64,8 @@ export default class UpdateUserService {
     user.email = email;
     user.name = name;
 
-    return await this.userRepository.save(user);
+    await this.userRepository.save(user);
+
+    return user;
   }
 }

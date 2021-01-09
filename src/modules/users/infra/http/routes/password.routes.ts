@@ -14,7 +14,7 @@ passwordRouter.patch(
       token: Joi.string().uuid().required(),
       password: Joi.string().required(),
       // password confirmation needs to be equal the password
-      password_confimation: Joi.string().valid(Joi.ref('password')).required(),
+      password_confirmation: Joi.string().valid(Joi.ref('password')).required(),
     },
   }),
   resetPasswordController.create,

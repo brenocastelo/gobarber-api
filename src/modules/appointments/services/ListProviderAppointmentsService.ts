@@ -1,4 +1,5 @@
 import CacheProviderInterface from '@shared/providers/CacheProvider/interfaces/CacheProviderInterface';
+import { classToClass } from 'class-transformer';
 import { log } from 'handlebars';
 import { inject, injectable } from 'tsyringe';
 import Appointment from '../infra/typeorm/entities/Appointment';
@@ -40,7 +41,7 @@ export default class ListProviderAppointmentsService {
         provider_id,
       });
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
     return appointments;
