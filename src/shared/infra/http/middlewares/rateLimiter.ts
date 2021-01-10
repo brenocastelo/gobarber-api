@@ -4,8 +4,9 @@ import Redis from 'ioredis';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 
 const redisClient = new Redis({
-  host: 'localhost',
-  port: 6379,
+  host: process.env.REDIS_HOST,
+  port: Number(process.env.REDIS_PORT),
+  password: process.env.REDIS_PASSWORD || undefined,
 });
 
 const limiter = new RateLimiterRedis({
