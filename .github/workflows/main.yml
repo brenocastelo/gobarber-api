@@ -46,7 +46,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           source: "dist"
-          target: "test"
+          target: "server-dist"
 
      # Install dependencis 
      # Run migrations
