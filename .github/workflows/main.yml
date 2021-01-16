@@ -45,8 +45,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "dist"
-          target: "server-dist"
+          source: "., !node_modules"
+          target: "~/app/gobarber-api"
 
      # Install dependencis 
      # Run migrations
