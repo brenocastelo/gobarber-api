@@ -59,7 +59,7 @@ jobs:
           script: |
             cd ~/app/gobarber-api
             yarn
-            ./node_module/.bin/typeorm migration:run
+            ./node_modules/.bin/typeorm migration:run
 
      # Restart node server
       - name: restart node server
