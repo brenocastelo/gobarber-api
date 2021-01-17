@@ -60,13 +60,5 @@ jobs:
             cd ~/app/gobarber-api
             yarn
             ./node_modules/.bin/typeorm migration:run
+            pm2 restart gobarber-api
 
-     # Restart node server
-      - name: restart node server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: pm2 restart gobarber-api
